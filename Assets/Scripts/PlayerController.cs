@@ -14,12 +14,15 @@ public class PlayerController : MonoBehaviour
     private float curDashDistance = 0;
     private bool dashing = false;
     private float dashingDirection = 0;
-    
+
+    private Hitbox hb;
 
 
     private void Start()
     {
         acceleration = baseAcceleration;
+
+        hb = GetComponent<Hitbox>();
     }
 
     private void Update()
@@ -41,7 +44,7 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.Translate(new Vector3(1, 0, 0) * curVelocity * Time.deltaTime);
-
+        hb.UpdateCollision();
     }
 
     public void Move(InputAction.CallbackContext callBack)
