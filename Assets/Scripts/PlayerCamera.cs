@@ -11,11 +11,15 @@ public class PlayerCamera : MonoBehaviour
     private float xMin, xMax;
     private Camera currentCamera;
     public float minSize = 2.0f;
+    public float zAxisStart;
+    public float yAxisStart;
+
     
     private void Start()
     {
         currentCamera = GetComponent<Camera>();
-        cameraPos = GetComponent<Transform>();       
+        cameraPos = transform;     
+        
     }
     private void LateUpdate()
     {
@@ -46,8 +50,9 @@ public class PlayerCamera : MonoBehaviour
             Size = minSize;
         }
 
-        transform.position = new Vector3(xMiddle, 6, -20);
+        transform.position = new Vector3(xMiddle, yAxisStart, zAxisStart);
         currentCamera.orthographicSize = Size;
+
     }
 
     public void GatherPlayers()
