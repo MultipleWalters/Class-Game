@@ -11,19 +11,19 @@ public class PlayerCamera : MonoBehaviour
     private float xMin, xMax;
     private Camera currentCamera;
     public float minSize = 2.0f;
+    
     private void Start()
     {
         currentCamera = GetComponent<Camera>();
         cameraPos = GetComponent<Transform>();       
-        GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
-        playerTransforms = new Transform[allPlayers.Length];
-        for (int i = 0; i < allPlayers.Length; i++)
-        {
-            playerTransforms[i] = allPlayers[i].transform;
-        }
     }
     private void LateUpdate()
     {
+        if (playerTransforms == null)
+        {
+            return;
+        }
+        
         if(playerTransforms.Length == 0)
         {
             Debug.Log("No player found, ensure player tag is set to 'Player'");
@@ -48,5 +48,15 @@ public class PlayerCamera : MonoBehaviour
 
         transform.position = new Vector3(xMiddle, 6, -20);
         currentCamera.orthographicSize = Size;
+    }
+
+    public void GatherPlayers()
+    {
+        GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+        playerTransforms = new Transform[allPlayers.Length];
+        for (int i = 0; i < allPlayers.Length; i++)
+        {
+            playerTransforms[i] = allPlayers[i].transform;
+        }
     }
 }

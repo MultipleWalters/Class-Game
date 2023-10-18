@@ -72,5 +72,10 @@ public class PlayerController : MonoBehaviour
                 curDashDistance = 0;
         }
     }
+
+    public void Attack(InputAction.CallbackContext callback)
+    {
+
+    }
 }
  

@@ -5,8 +5,10 @@ using UnityEngine.UIElements;
 
 public class Hitbox : MonoBehaviour
 {
-    [SerializeField] private RectTransform hitbox;
+    [SerializeField] private RectTransform hitboxPrefab;
     [SerializeField] private Camera gameplayCamera;
+    private RectTransform hitbox;
+    private RectTransform hurtbox;
     private Canvas cv;
     private RectTransform canvasRect;
     private Collider playerCollider;
@@ -14,16 +16,28 @@ public class Hitbox : MonoBehaviour
     public Vector3 hitboxMin;
     public Vector3 hitboxMax;
 
+    private void Awake()
+    {
+        playerCollider = GetComponent<Collider>();
+
+        cv = FindObjectOfType<Canvas>();
+        canvasRect = cv.GetComponent<RectTransform>();
+    }
+
     private void Start()
     {
-        cv = hitbox.GetComponentInParent<Canvas>();
-        canvasRect = cv.GetComponent<RectTransform>();
+        if (gameplayCamera == null)
+        {
+            gameplayCamera = Camera.main;
+        }
 
-        playerCollider = GetComponent<Collider>();
+        hitbox = Instantiate(hitboxPrefab, canvasRect);
     }
 
     public void UpdateCollision()
     {
+        if (hitbox == null)
+            return;
         hitboxMin = playerCollider.bounds.min;
         hitboxMin.z = transform.position.z;
         hitboxMax = playerCollider.bounds.max;
@@ -35,6 +49,15 @@ public class Hitbox : MonoBehaviour
         hitbox.anchoredPosition = TranslateToScreen(transform.position);
         hitbox.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Abs(screenSpaceMax.x - screenSpaceMin.x));
         hitbox.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Abs(screenSpaceMax.y - screenSpaceMin.y));
+    }
+
+    public void CreateHurtbox()
+    {
+        if (hurtbox != null)
+            return;
+        
+        hurtbox = Instantiate(hitboxPrefab, canvasRect);
+        
 
     }
 
@@ -46,5 +69,4 @@ public class Hitbox : MonoBehaviour
 
         return result;
     }
-
 }
