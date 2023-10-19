@@ -14,7 +14,7 @@ public class PlayerCamera : MonoBehaviour
     public float maxSize = 6.0f;
     public float zAxisStart = -20;
     public float yAxisStart = 2.0f;
-
+     
     
     private void Start()
     {
@@ -43,7 +43,6 @@ public class PlayerCamera : MonoBehaviour
                 xMax = playerTransforms[i].position.x;
         }
 
-        
         float xMiddle = (xMin + xMax) / 2;
         float Size = (xMax - xMin) / currentCamera.aspect;
         if (Size < minSize)
@@ -54,8 +53,8 @@ public class PlayerCamera : MonoBehaviour
         {
             Size = maxSize;
         }
-
         transform.position = new Vector3(xMiddle, yAxisStart + Size, zAxisStart);
+
         currentCamera.orthographicSize = Size;
 
     }
