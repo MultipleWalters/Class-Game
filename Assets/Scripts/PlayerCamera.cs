@@ -11,14 +11,15 @@ public class PlayerCamera : MonoBehaviour
     private float xMin, xMax;
     private Camera currentCamera;
     public float minSize = 2.0f;
-    public float zAxisStart;
-    public float yAxisStart;
+    public float maxSize = 6.0f;
+    public float zAxisStart = -20;
+    public float yAxisStart = 2.0f;
 
     
     private void Start()
     {
         currentCamera = GetComponent<Camera>();
-        cameraPos = transform;     
+        cameraPos = transform;
         
     }
     private void LateUpdate()
@@ -49,8 +50,12 @@ public class PlayerCamera : MonoBehaviour
         {
             Size = minSize;
         }
+        if (Size > maxSize)
+        {
+            Size = maxSize;
+        }
 
-        transform.position = new Vector3(xMiddle, yAxisStart, zAxisStart);
+        transform.position = new Vector3(xMiddle, yAxisStart + Size, zAxisStart);
         currentCamera.orthographicSize = Size;
 
     }
