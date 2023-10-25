@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Schema;
@@ -9,7 +10,7 @@ public class PlayerCamera : MonoBehaviour
     private Transform[] playerTransforms;
     private Transform cameraPos;
     private float xMin, xMax;
-    private Camera currentCamera;
+    private CinemachineVirtualCamera currentCamera;
     public float minSize = 2.0f;
     public float maxSize = 6.0f;
     public float zAxisStart = -20;
@@ -18,7 +19,7 @@ public class PlayerCamera : MonoBehaviour
     
     private void Start()
     {
-        currentCamera = GetComponent<Camera>();
+        currentCamera = GetComponent<CinemachineVirtualCamera>();
         cameraPos = transform;
         
     }
@@ -44,7 +45,7 @@ public class PlayerCamera : MonoBehaviour
         }
 
         float xMiddle = (xMin + xMax) / 2;
-        float Size = (xMax - xMin) / currentCamera.aspect;
+        float Size = (xMax - xMin);
         if (Size < minSize)
         {
             Size = minSize;
@@ -55,7 +56,7 @@ public class PlayerCamera : MonoBehaviour
         }
         transform.position = new Vector3(xMiddle, yAxisStart + Size, zAxisStart);
 
-        currentCamera.orthographicSize = Size;
+        currentCamera.m_Lens.OrthographicSize = Size;
 
     }
 
