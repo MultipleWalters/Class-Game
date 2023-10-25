@@ -68,7 +68,7 @@ public class PlayerStamina : MonoBehaviour
         }
     }
 
-    void LoseStamina(int staminaLost)
+    public void LoseStamina(int staminaLost)
     {
         currentStamina -= staminaLost;
         //Testing

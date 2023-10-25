@@ -8,10 +8,11 @@ public class Hitbox : MonoBehaviour
     [SerializeField] private RectTransform hitboxPrefab;
     [SerializeField] private Camera gameplayCamera;
     private RectTransform hitbox;
-    private RectTransform hurtbox;
+    [SerializeField] private RectTransform hurtbox;
     private Canvas cv;
     private RectTransform canvasRect;
     private Collider playerCollider;
+    public bool isDefending;
 
     public Vector3 hitboxMin;
     public Vector3 hitboxMax;
@@ -59,6 +60,14 @@ public class Hitbox : MonoBehaviour
         hurtbox = Instantiate(hitboxPrefab, canvasRect);
         
 
+    }
+
+    public void DestroyHurtbox()
+    {
+        if (hurtbox != null)
+            return;
+
+        Destroy(hurtbox);
     }
 
     public Vector2 TranslateToScreen(Vector3 worldPos)
